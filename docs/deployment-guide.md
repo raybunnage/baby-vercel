@@ -130,3 +130,115 @@ In the configuration screen:
 - `feature/*` → Preview deployments
 
 ## Project Structure 
+
+## Example Workflow: Making a Small Change
+
+### 1. Create and Switch to Development Branch
+```bash
+# Create and switch to development branch
+git checkout -b development
+git push -u origin development
+```
+- Go to Vercel dashboard
+- Verify development branch is deployed to development environment
+- Check https://development.dhg-hub.org (or your assigned URL)
+
+### 2. Create and Switch to Feature Branch
+```bash
+# Create and switch to feature branch
+git checkout -b feature/update-welcome-text
+```
+
+### 3. Make a Small Change
+Update the welcome text in frontend/src/App.tsx:
+```tsx
+function App() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold text-gray-800">
+          Welcome to DHG Hub
+        </h1>
+        <p className="mt-4 text-gray-600">
+          Vercel Deployment Test - Updated!
+        </p>
+      </div>
+    </div>
+  );
+}
+```
+
+### 4. Test Feature Branch Locally
+```bash
+cd frontend
+npm run dev
+# Check changes at http://localhost:5173
+```
+
+### 5. Push Feature Branch and Test in Preview
+```bash
+git add .
+git commit -m "Update welcome text"
+git push -u origin feature/update-welcome-text
+```
+- Go to Vercel dashboard
+- Find your feature branch deployment
+- Test at https://feature-update-welcome-text.dhg-hub.org (or your assigned preview URL)
+
+### 6. Merge to Development
+```bash
+# Switch to development branch
+git checkout development
+
+# Merge feature branch
+git merge feature/update-welcome-text
+
+# Push to trigger development deployment
+git push origin development
+```
+- Check Vercel dashboard
+- Verify changes in development environment
+- Test at https://development.dhg-hub.org
+
+### 7. Merge to Production
+```bash
+# Switch to main branch
+git checkout main
+
+# Merge development branch
+git merge development
+
+# Push to trigger production deployment
+git push origin main
+```
+- Check Vercel dashboard
+- Verify changes in production environment
+- Test at https://dhg-hub.org
+
+### 8. Clean Up
+```bash
+# Delete feature branch locally
+git branch -d feature/update-welcome-text
+
+# Delete feature branch on GitHub
+git push origin --delete feature/update-welcome-text
+```
+
+### Verification Checklist
+- [ ] Changes work in local development
+- [ ] Changes work in feature branch preview deployment
+- [ ] Changes work in development environment
+- [ ] Changes work in production environment
+
+### Troubleshooting Common Issues
+- **Preview Not Updating**: Wait a few minutes, Vercel needs time to build
+- **Merge Conflicts**: Resolve conflicts locally before pushing
+- **Wrong Branch**: Use `git branch` to verify current branch
+- **Build Failures**: Check Vercel deployment logs
+
+### Best Practices
+1. Always create feature branches from development
+2. Test changes in all environments before merging
+3. Use meaningful commit messages
+4. Clean up feature branches after merging
+5. Monitor deployment status in Vercel dashboard
