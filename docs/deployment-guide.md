@@ -54,6 +54,16 @@ In the configuration screen:
 - URL: https://dhg-hub.org
 
 #### Development (development branch)
+> **Setting up the Development Environment URL**
+1. Go to your project in the Vercel dashboard
+2. Click on "Settings" → "Domains"
+3. Add a new domain: `development.dhg-hub.org`
+4. In the Git section of Settings, find "Production Branch"
+5. Click "Edit" and add a branch configuration:
+   - For branch: `development`
+   - Set domain: `development.dhg-hub.org`
+6. Save the configuration
+
 - What: Testing environment for new features
 - When: After merging feature branches
 - URL: https://dev.dhg-hub.org or https://development.dhg-hub.org
@@ -242,3 +252,81 @@ git push origin --delete feature/update-welcome-text
 3. Use meaningful commit messages
 4. Clean up feature branches after merging
 5. Monitor deployment status in Vercel dashboard
+
+### Branch Protection (Recommended)
+1. Go to your GitHub repository settings
+2. Navigate to "Branches" → "Branch protection rules"
+3. Add rules for both `main` and `development` branches:
+   - Require pull request reviews
+   - Require status checks to pass
+   - Include administrators in restrictions
+
+## Real-World Example: Updating Page Title
+
+### Completed Workflow Example
+We updated the page title from "DHG Hub" to "DHG Hub - Home". Here's how we did it:
+
+### 1. Created Development Branch
+```bash
+git checkout -b development
+git push -u origin development
+```
+
+### 2. Created Feature Branch
+```bash
+git checkout -b feature/update-page-title
+```
+
+### 3. Made the Change
+Updated frontend/index.html:
+```html
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DHG Hub - Home</title>  <!-- Changed from "DHG Hub" -->
+</head>
+```
+
+### 4. Tested Locally
+```bash
+cd frontend
+npm run dev
+# Verified title change at http://localhost:5173
+```
+
+### 5. Pushed and Tested in Preview
+```bash
+git add frontend/index.html
+git commit -m "Update page title to include - Home suffix"
+git push -u origin feature/update-page-title
+```
+- Verified in Vercel preview deployment
+- Checked title at feature branch URL
+
+### 6. Merged to Development
+```bash
+git checkout development
+git merge feature/update-page-title
+git push origin development
+```
+- Verified at development.dhg-hub.org
+
+### 7. Merged to Production
+```bash
+git checkout main
+git merge development
+git push origin main
+```
+- Verified at dhg-hub.org
+
+### 8. Cleaned Up
+```bash
+git branch -d feature/update-page-title
+git push origin --delete feature/update-page-title
+```
+
+### What We Learned
+- How to make a simple change across environments
+- Importance of testing in each environment
+- How Vercel automatically creates deployments
+- How to verify changes in different URLs
