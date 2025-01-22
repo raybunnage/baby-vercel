@@ -1,1 +1,65 @@
- 
+{
+    "rules": [
+      {
+        "type": "React",
+        "instructions": "Use functional components with hooks (useState, useEffect, etc.). Prefer modular components with single responsibility and leverage TypeScript for type safety. Implement responsive design using Tailwind CSS.",
+        "componentStructure": {
+          "namingConventions": {
+            "componentNames": "PascalCase",
+            "directoryNames": "lowercase-with-dashes"
+          },
+          "bestPractices": {
+            "componentDeclaration": "function",
+            "hooksUsage": ["useState", "useEffect", "useContext"],
+            "followHooksRules": true,
+            "preferFunctionalComponents": true,
+            "avoidInlineFunctions": true
+          },
+          "styling": {
+            "approach": {
+              "primary": "Tailwind CSS with modules",
+              "conventions": [
+                "Keep styles close to components",
+                "Use utility classes first"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "type": "Vite",
+        "instructions": "Leverage Vite's fast bundling and hot module replacement. Use dynamic importing for lazy-loaded routes and components."
+      },
+      {
+        "type": "DeploymentWorkflow",
+        "description": "Vercel deployment workflow management",
+        "deploymentFramework": {
+          "environments": {
+            "development": {
+              "purpose": "Local development and testing",
+              "configuration": {
+                "debugEnabled": true
+              }
+            },
+            "production": {
+              "purpose": "Live environment",
+              "configuration": {
+                "optimizeForProduction": true
+              }
+            }
+          },
+          "bestPractices": {
+            "deployment": [
+              "Use semantic versioning",
+              "Monitor deployment health",
+              "Test in development before production"
+            ]
+          }
+        }
+      },
+      {
+        "type": "Documentation",
+        "instructions": "Maintain clear documentation in markdown (.md) files. Focus on setup and deployment procedures."
+      }
+    ]
+  }
