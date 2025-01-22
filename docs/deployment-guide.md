@@ -132,3 +132,84 @@ In the configuration screen:
    ```bash
    npm run dev
    ```
+
+## Using Vercel CLI
+
+### 1. Install Vercel CLI
+```bash
+npm install -g vercel
+```
+
+### 2. Login to Vercel
+```bash
+vercel login
+```
+
+### 3. Link Your Project
+```bash
+# Navigate to your project root
+cd your-project-root
+
+# Link to existing Vercel project
+vercel link
+```
+
+### 4. Environment Deployments
+
+#### Development Environment
+```bash
+# Deploy to development
+vercel deploy --environment=development
+```
+
+#### Production Environment
+```bash
+# Deploy to production
+vercel deploy --prod
+```
+
+### 5. Environment Variables
+```bash
+# List environment variables
+vercel env ls
+
+# Add environment variable
+vercel env add MY_VARIABLE
+
+# Remove environment variable
+vercel env rm MY_VARIABLE
+```
+
+### 6. Common CLI Commands
+```bash
+# View project information
+vercel project ls
+
+# View recent deployments
+vercel ls
+
+# Pull environment variables locally
+vercel env pull .env.local
+
+# View deployment logs
+vercel logs your-deployment-url.vercel.app
+```
+
+### 7. CLI Development Workflow
+1. Make changes locally
+2. Test with `vercel dev`
+3. Deploy to development:
+   ```bash
+   vercel deploy --environment=development
+   ```
+4. Test in development environment
+5. Deploy to production:
+   ```bash
+   vercel deploy --prod
+   ```
+
+### Troubleshooting CLI
+- **Authentication Issues**: Run `vercel logout` then `vercel login`
+- **Wrong Project**: Check `vercel link` settings
+- **Environment Issues**: Verify with `vercel env ls`
+- **Build Errors**: Use `vercel build` locally to debug
